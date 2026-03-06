@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Kanazawa Guide</title>
+    <!-- PWA マニフェスト（データURI埋め込み） -->
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Kanazawa%20Spots%22%2C%22short_name%22%3A%22Kanazawa%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23121212%22%2C%22theme_color%22%3A%22%23b88b4a%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%2520viewBox%3D%270%200%20100%20100%27%253E%253Crect%2520width%3D%27100%27%2520height%3D%27100%27%2520rx%3D%2720%27%2520fill%3D%27%23322f2b%27%2F%253E%253Ctext%2520x%3D%2750%27%2520y%3D%2770%27%2520font-size%3D%2770%27%2520text-anchor%3D%27middle%27%2520fill%3D%27%23e3b37c%27%2520font-family%3D%27system-ui%2C%2520sans-serif%27%253E%E9%87%91%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%2520viewBox%3D%270%200%20512%20512%27%253E%253Crect%2520width%3D%27512%27%2520height%3D%27512%27%2520rx%3D%27100%27%2520fill%3D%27%23322f2b%27%2F%253E%253Ctext%2520x%3D%27256%27%2520y%3D%27350%27%2520font-size%3D%27350%27%2520text-anchor%3D%27middle%27%2520fill%3D%27%23e3b37c%27%2520font-family%3D%27system-ui%2C%2520sans-serif%27%253E%E9%87%91%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+    <!-- アイコン（ホーム画面用・フォールバック） -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23322f2b'/%3E%3Ctext x='50' y='70' font-size='70' text-anchor='middle' fill='%23e3b37c' font-family='system-ui, sans-serif'%3E金%3C/text%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23322f2b'/%3E%3Ctext x='50' y='70' font-size='70' text-anchor='middle' fill='%23e3b37c' font-family='system-ui, sans-serif'%3E金%3C/text%3E%3C/svg%3E">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            transition: background-color 0.2s, color 0.2s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        body.light-mode {
+            background-color: #f5f5f5;
+            color: #1e1e1e;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 16px;
+            flex: 1;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            background: linear-gradient(145deg, #b88b4a, #e3b37c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        body.light-mode h1 {
+            background: linear-gradient(145deg, #7a5a3a, #a07d4f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .button-group {
+            display: flex;
+            gap: 8px;
+        }
+        .btn {
+            background: #2d2d2d;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #e0e0e0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: 0.15s;
+            border: 1px solid #444;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        body.light-mode .btn {
+            background: #eaeaea;
+            color: #1e1e1e;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .btn:active {
+            transform: scale(0.96);
+        }
+        .btn.lang::before {
+            content: "🌐 ";
+        }
+        .btn.theme::before {
+            content: "🌙 ";
+        }
+        body.light-mode .btn.theme::before {
+            content: "☀️ ";
+        }
+        .spots-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 24px 0 20px;
+        }
+        .card {
+            background: #1e1e1e;
+            border-radius: 24px;
+            padding: 16px;
+            border-left: 6px solid #b88b4a;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+            transition: 0.15s;
+        }
+        body.light-mode .card {
+            background: #ffffff;
+            border-left-color: #a07d4f;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            background: #333;
+        }
+        body.light-mode .card img {
+            background: #ddd;
+        }
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #e3b37c;
+        }
+        body.light-mode .card h2 {
+            color: #8b6c47;
+        }
+        .card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #d0d0d0;
+        }
+        body.light-mode .card p {
+            color: #333;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            padding: 24px 12px 12px;
+            border-top: 1px solid #333;
+            font-size: 0.95rem;
+        }
+        body.light-mode .footer {
+            border-top-color: #ccc;
+        }
+        .footer a {
+            color: #e3b37c;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 6px;
+            padding: 8px 16px;
+            background: #2a2a2a;
+            border-radius: 40px;
+            border: 1px solid #444;
+        }
+        body.light-mode .footer a {
+            background: #eaeaea;
+            color: #6a4e2e;
+            border-color: #aaa;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .note {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin: 4px 0;
+        }
+        body.light-mode .note {
+            color: #666;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="container">
+        <div class="header">
+            <h1 id="main-title">Kanazawa Spots</h1>
+            <div class="button-group">
+                <button class="btn lang" id="lang-toggle">🇬🇧 EN</button>
+                <button class="btn theme" id="theme-toggle"></button>
+            </div>
+        </div>
+
+        <div class="spots-list" id="spots-container"></div>
+
+        <div class="footer">
+            <div>Contact us</div>
+            <a href="mailto:mementomorikatsu@gmail.com">mementomorikatsu@gmail.com</a>
+            <div class="note">📧 タップでメール起動</div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // 観光地データ（画像は picsum の固定ID、実際の金沢写真に差し替え推奨）
+            const spotsData = [
+                { enName: "Kenroku-en Garden", enDesc: "One of Japan's three most celebrated landscape gardens. Famous for winter yukitsuri.", jpName: "兼六園", jpDesc: "日本三名園の一つ。冬の雪吊りが有名。", img: "https://picsum.photos/id/101/300/200" },
+                { enName: "Kanazawa Castle Park", enDesc: "Park on the grounds of former Kanazawa Castle, symbol of the Kaga domain.", jpName: "金沢城公園", jpDesc: "加賀百万石の象徴・金沢城の跡地に整備された公園。", img: "https://picsum.photos/id/102/300/200" },
+                { enName: "Higashi Chaya District", enDesc: "Largest chaya district with stone-paved streets and traditional wooden buildings.", jpName: "ひがし茶屋街", jpDesc: "石畳の道と趣ある茶屋建築が並ぶ最大の茶屋街。", img: "https://picsum.photos/id/103/300/200" },
+                { enName: "Nagamachi Samurai District", enDesc: "Historic district where Kaga samurai once lived. Visit Nomura-ke house.", jpName: "長町武家屋敷跡", jpDesc: "加賀藩の武士が暮らした地区。野村家では庭園も見学可。", img: "https://picsum.photos/id/104/300/200" },
+                { enName: "Omicho Market", enDesc: "Kanazawa's kitchen with over 300 years of history. Enjoy fresh seafood.", jpName: "近江町市場", jpDesc: "約300年の歴史を持つ「金沢の台所」。海鮮丼や食べ歩き。", img: "https://picsum.photos/id/105/300/200" },
+                { enName: "21st Century Museum", enDesc: "Contemporary art museum with interactive exhibits like the 'Swimming Pool'.", jpName: "21世紀美術館", jpDesc: "円形ガラス張りの現代美術館。スイミング・プールが人気。", img: "https://picsum.photos/id/106/300/200" },
+                { enName: "Kanazawa Station", enDesc: "Stunning Tsuzumi-mon gate and 'Motenasu Dome'. Fusion of tradition and modernity.", jpName: "金沢駅", jpDesc: "伝統と現代を融合した鼓門ともてなしドームが出迎える。", img: "https://picsum.photos/id/107/300/200" },
+                { enName: "Kazuemachi Chaya District", enDesc: "Quiet chaya district along the Asano River, atmospheric in the evening.", jpName: "主計町茶屋街", jpDesc: "浅野川沿いの静かな茶屋街。夕暮れ時に情緒あふれる。", img: "https://picsum.photos/id/108/300/200" },
+                { enName: "Nishi Chaya District", enDesc: "One of the three major chaya districts, quieter and more local.", jpName: "にし茶屋街", jpDesc: "金沢三茶屋街の一つ。ひがしに比べ静かで生活感がある。", img: "https://picsum.photos/id/109/300/200" },
+                { enName: "Myoryuji (Ninja Temple)", enDesc: "Ninja Temple nickname from maze-like interior with hidden rooms. Reservations required.", jpName: "妙立寺（忍者寺）", jpDesc: "迷路のような内部構造から「忍者寺」の異名。予約制。", img: "https://picsum.photos/id/110/300/200" },
+                { enName: "Kanazawa Craft Workshop", enDesc: "Experience gold-leaf application and Kaga Yuzen dyeing.", jpName: "金沢職人大学校", jpDesc: "金箔貼りや加賀友禅染色を体験できる施設。", img: "https://picsum.photos/id/111/300/200" },
+                { enName: "Mount Utatsu", enDesc: "Low mountain with panoramic views of the city. Cherry blossom spot.", jpName: "卯辰山", jpDesc: "街を一望できる低山。春は桜の名所。", img: "https://picsum.photos/id/112/300/200" }
+            ];
+
+            let currentLang = 'en';
+            let currentTheme = 'dark';
+            const container = document.getElementById('spots-container');
+            const titleEl = document.getElementById('main-title');
+            const langBtn = document.getElementById('lang-toggle');
+            const themeBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            function renderSpots() {
+                const isEn = currentLang === 'en';
+                titleEl.textContent = isEn ? 'Kanazawa Spots' : '金沢観光名所';
+                let html = '';
+                spotsData.forEach(spot => {
+                    const name = isEn ? spot.enName : spot.jpName;
+                    const desc = isEn ? spot.enDesc : spot.jpDesc;
+                    html += `
+                        <div class="card">
+                            <img src="${spot.img}" alt="${name}" loading="lazy">
+                            <h2>${name}</h2>
+                            <p>${desc}</p>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+                langBtn.innerHTML = isEn ? '🇬🇧 EN' : '🇯🇵 JP';
+            }
+
+            function toggleTheme() {
+                if (currentTheme === 'dark') {
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                    currentTheme = 'light';
+                } else {
+                    body.classList.remove('light-mode');
+                    body.classList.add('dark-mode');
+                    currentTheme = 'dark';
+                }
+            }
+
+            function toggleLang() {
+                currentLang = currentLang === 'en' ? 'jp' : 'en';
+                renderSpots();
+            }
+
+            langBtn.addEventListener('click', toggleLang);
+            themeBtn.addEventListener('click', toggleTheme);
+
+            renderSpots();
+
+            // PWA: サービスワーカー登録
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('sw.js')
+                        .then(reg => console.log('ServiceWorker registered'))
+                        .catch(err => console.log('SW registration failed: ', err));
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
